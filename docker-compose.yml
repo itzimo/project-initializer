@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: project-initializer:latest
+    container_name: project-initializer-app
+    ports:
+      - "8080:8080"
