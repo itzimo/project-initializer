@@ -27,11 +27,13 @@ public final class PageUtil {
      *
      * @return {@link Page }<{@link T }>
      */
+    @NonNull
     public static <T> Page<T> page() {
         PageRequest pageRequest = getPageRequestFromContext();
         return buildPage(pageRequest);
     }
 
+    @NonNull
     private static PageRequest getPageRequestFromContext() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes instanceof ServletRequestAttributes) {
@@ -70,6 +72,7 @@ public final class PageUtil {
         return new PageRequest();
     }
 
+    @NonNull
     public static <T> Page<T> buildPage(@NonNull PageRequest pageRequest) {
         Page<T> page = new Page<>(pageRequest.getCurrent(), pageRequest.getSize());
         // 解析排序参数
@@ -94,6 +97,7 @@ public final class PageUtil {
      * @param page 分页数据
      * @return {@link PageResponse }<{@link T }>
      */
+    @NonNull
     public static <T> PageResponse<T> pageResult(@NonNull Page<T> page) {
         return PageResponse.page(
                 ErrorCode.SUCCESS,
@@ -111,6 +115,7 @@ public final class PageUtil {
      * @param all  全部数据
      * @return {@link PageResponse }<{@link T }>
      */
+    @NonNull
     public static <T> PageResponse<T> pageResult(@NonNull Page<T> page, @NonNull List<T> all) {
         // 对传入的完整列表进行本地分页处理
         int total = all.size();
