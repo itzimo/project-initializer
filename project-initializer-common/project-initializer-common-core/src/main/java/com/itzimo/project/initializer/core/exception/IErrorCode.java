@@ -3,7 +3,7 @@ package com.itzimo.project.initializer.core.exception;
 import com.itzimo.project.initializer.core.dto.ApiResponse;
 
 /**
- * 接口错误码
+ * 错误码接口
  *
  * @author chenmiao
  * @date 2025/10/28
