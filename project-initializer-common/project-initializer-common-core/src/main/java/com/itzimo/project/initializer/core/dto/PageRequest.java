@@ -22,13 +22,13 @@ public final class PageRequest {
      * 默认值为1
      */
     private int current = 1;
-    
+
     /**
      * 每页大小，即每页显示的数据条数
      * 默认值为10
      */
     private int size = 10;
-    
+
     /**
      * 排序规则字符串
      * 格式: "field1.asc,field2.desc"，支持多个字段排序
@@ -54,7 +54,7 @@ public final class PageRequest {
             // 从请求参数中获取分页信息
             String currentStr = request.getParameter("current");
             String sizeStr = request.getParameter("size");
-            String orderBy = request.getParameter("orderBy");
+            String orderBy = request.getParameter("order_by");
 
             if (StringUtils.hasText(currentStr)) {
                 try {
