@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2025/10/28
  */
 @Data
-public class PageRequest {
+public final class PageRequest {
     private int current = 1;
     private int size = 10;
     // 格式: "field1.asc,field2.desc"
