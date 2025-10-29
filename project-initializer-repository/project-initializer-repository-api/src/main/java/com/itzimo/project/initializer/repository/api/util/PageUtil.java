@@ -116,7 +116,7 @@ public final class PageUtil {
      * @return {@link PageResponse }<{@link T }>
      */
     @NonNull
-    public static <T> PageResponse<T> pageResult(@NonNull List<T> all) {
+    public static <T> PageResponse<T> pageResult(List<T> all) {
         return pageResult(getPageRequestFromContext(), all);
     }
 
@@ -128,7 +128,7 @@ public final class PageUtil {
      * @return {@link PageResponse }<{@link T }>
      */
     @NonNull
-    public static <T> PageResponse<T> pageResult(@NonNull Page<T> page, @NonNull List<T> all) {
+    public static <T> PageResponse<T> pageResult(@NonNull Page<T> page, List<T> all) {
         return pageResult(all, (int) page.getCurrent(), (int) page.getSize());
     }
 
@@ -140,7 +140,7 @@ public final class PageUtil {
      * @return {@link PageResponse }<{@link T }>
      */
     @NonNull
-    public static <T> PageResponse<T> pageResult(@NonNull PageRequest page, @NonNull List<T> all) {
+    public static <T> PageResponse<T> pageResult(@NonNull PageRequest page, List<T> all) {
         return pageResult(all, page.getCurrent(), page.getSize());
     }
 
@@ -153,7 +153,10 @@ public final class PageUtil {
      * @return {@link PageResponse }<{@link T }>
      */
     @NonNull
-    private static <T> PageResponse<T> pageResult(@NonNull List<T> all, int current, int size) {
+    private static <T> PageResponse<T> pageResult(List<T> all, int current, int size) {
+        if (all == null) {
+            return PageResponse.page(ErrorCode.SUCCESS, List.of(), 0, current, size);
+        }
         int total = all.size();
         // 计算分页起始和结束位置
         int fromIndex = (current - 1) * size;
