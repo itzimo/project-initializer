@@ -6,10 +6,13 @@ import com.itzimo.project.initializer.core.dto.PageRequest;
 import com.itzimo.project.initializer.core.dto.PageResponse;
 import com.itzimo.project.initializer.core.enums.ErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.util.List;
 
 /**
  * 分页工具类
@@ -67,7 +70,7 @@ public final class PageUtil {
         return new PageRequest();
     }
 
-    public static <T> Page<T> buildPage(PageRequest pageRequest) {
+    public static <T> Page<T> buildPage(@NonNull PageRequest pageRequest) {
         Page<T> page = new Page<>(pageRequest.getCurrent(), pageRequest.getSize());
         // 解析排序参数
         if (StringUtils.hasLength(pageRequest.getOrderBy())) {
@@ -85,13 +88,50 @@ public final class PageUtil {
         return page;
     }
 
-    public static <T> PageResponse<T> page(Page<T> page) {
+    /**
+     * 分页
+     *
+     * @param page 分页数据
+     * @return {@link PageResponse }<{@link T }>
+     */
+    public static <T> PageResponse<T> pageResult(@NonNull Page<T> page) {
         return PageResponse.page(
                 ErrorCode.SUCCESS,
                 page.getRecords(),
                 page.getTotal(),
                 page.getCurrent(),
                 page.getSize()
+        );
+    }
+
+    /**
+     * 分页
+     *
+     * @param page 分页请求参数
+     * @param all  全部数据
+     * @return {@link PageResponse }<{@link T }>
+     */
+    public static <T> PageResponse<T> pageResult(@NonNull Page<T> page, @NonNull List<T> all) {
+        // 对传入的完整列表进行本地分页处理
+        int total = all.size();
+        int current = (int) page.getCurrent();
+        int size = (int) page.getSize();
+
+        // 计算分页起始和结束位置
+        int fromIndex = (current - 1) * size;
+        int toIndex = Math.min(fromIndex + size, total);
+
+        // 防止越界
+        List<T> pagedList = (total > 0 && fromIndex < total) ?
+                all.subList(fromIndex, toIndex) :
+                java.util.Collections.emptyList();
+
+        return PageResponse.page(
+                ErrorCode.SUCCESS,
+                pagedList,
+                total,
+                current,
+                size
         );
     }
 }
