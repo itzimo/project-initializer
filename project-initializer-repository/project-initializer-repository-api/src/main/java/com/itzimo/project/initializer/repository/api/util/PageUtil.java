@@ -123,7 +123,7 @@ public final class PageUtil {
     /**
      * 分页结果
      *
-     * @param page 分页请求参数
+     * @param page 分页参数
      * @param all  全部数据
      * @return {@link PageResponse }<{@link T }>
      */
@@ -135,7 +135,7 @@ public final class PageUtil {
     /**
      * 分页结果
      *
-     * @param page 第页
+     * @param page 分页参数
      * @param all  全部数据
      * @return {@link PageResponse }<{@link T }>
      */
