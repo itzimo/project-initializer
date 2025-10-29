@@ -8,7 +8,7 @@ import com.itzimo.project.initializer.core.enums.ErrorCode;
 import org.springframework.util.StringUtils;
 
 /**
- * 页面util
+ * 分页工具类
  *
  * @author chenmiao
  * @date 2025/10/28
