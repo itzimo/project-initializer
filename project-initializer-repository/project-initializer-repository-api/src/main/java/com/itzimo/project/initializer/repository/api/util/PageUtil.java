@@ -117,7 +117,7 @@ public final class PageUtil {
      */
     @NonNull
     public static <T> PageResponse<T> pageResult(@NonNull List<T> all) {
-        return pageResult(page(), all);
+        return pageResult(getPageRequestFromContext(), all);
     }
 
     /**
@@ -129,11 +129,32 @@ public final class PageUtil {
      */
     @NonNull
     public static <T> PageResponse<T> pageResult(@NonNull Page<T> page, @NonNull List<T> all) {
-        // 对传入的完整列表进行本地分页处理
-        int total = all.size();
-        int current = (int) page.getCurrent();
-        int size = (int) page.getSize();
+        return pageResult(all, (int) page.getCurrent(), (int) page.getSize());
+    }
 
+    /**
+     * 分页结果
+     *
+     * @param page 第页
+     * @param all  全部数据
+     * @return {@link PageResponse }<{@link T }>
+     */
+    @NonNull
+    public static <T> PageResponse<T> pageResult(@NonNull PageRequest page, @NonNull List<T> all) {
+        return pageResult(all, page.getCurrent(), page.getSize());
+    }
+
+    /**
+     * 分页结果
+     *
+     * @param all     全部数据
+     * @param current 页数
+     * @param size    每页大小
+     * @return {@link PageResponse }<{@link T }>
+     */
+    @NonNull
+    private static <T> PageResponse<T> pageResult(@NonNull List<T> all, int current, int size) {
+        int total = all.size();
         // 计算分页起始和结束位置
         int fromIndex = (current - 1) * size;
         int toIndex = Math.min(fromIndex + size, total);
