@@ -33,6 +33,12 @@ public final class PageUtil {
     }
 
     public <T> PageResponse<T> page(Page<T> page) {
-        return PageResponse.page(ErrorCode.SUCCESS, page.getRecords(), page.getTotal(), page.getCurrent(), page.getSize());
+        return PageResponse.page(
+                ErrorCode.SUCCESS,
+                page.getRecords(),
+                page.getTotal(),
+                page.getCurrent(),
+                page.getSize()
+        );
     }
 }
