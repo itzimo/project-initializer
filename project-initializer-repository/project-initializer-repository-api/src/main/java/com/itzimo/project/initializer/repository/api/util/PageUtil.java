@@ -110,7 +110,7 @@ public final class PageUtil {
 
     /**
      * 获取分页参数并根据list构建分页结果
-     * ?current=1&size=10&orderBy=field1.asc,field2.desc
+     * ?current=1&size=10
      *
      * @param all 全部数据
      * @return {@link PageResponse }<{@link T }>
